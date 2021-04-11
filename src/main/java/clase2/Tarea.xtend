@@ -4,9 +4,10 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-abstract class Tarea {
+class Tarea {
 	int tiempo
 	Complejidad complejidad = new ComplejidadMinima
+	List<Impuesto> impuestos = newArrayList
 	
 	def asignarComplejidadMinima() {
 		complejidad = new ComplejidadMinima
@@ -19,16 +20,27 @@ abstract class Tarea {
 	def asignarComplejidadMaxima() {
 		complejidad = new ComplejidadMaxima
 	}
-	
+
+	// template method	
 	def double costo() {
-		costoComplejidad() // + costoImpositivo() + costoPorOverhead()
+		// primitiva 1        primitiva 2           primitiva 3
+		costoComplejidad() + costoImpositivo() + costoPorOverhead()
 	}
 	
 	def double costoComplejidad() {
 		complejidad.costo(this)
 	}
 	
-	def double costoPorOverhead()
+	def double costoPorOverhead() {0}
+	
+	def double costoImpositivo() {
+		return this.impuestos.fold(0d, [ acum, impuesto | acum + impuesto.costoImpositivo(this) ])
+	}
+	
+	def void agregarImpuesto(Impuesto impuesto) {
+		this.impuestos.add(impuesto)
+	}
+	
 }
 
 abstract class Complejidad {
@@ -39,14 +51,11 @@ abstract class Complejidad {
 
 class ComplejidadMinima extends Complejidad {}
 class ComplejidadMedia extends Complejidad {
-	
 	override costo(Tarea tarea) {
 		super.costo(tarea) * 1.05
 	}
-	
 }
 class ComplejidadMaxima extends Complejidad {
-	
 	override costo(Tarea tarea) {
 		super.costo(tarea) * 1.07 + (10 * Math.max(0, tarea.tiempo - 10))
 	}
