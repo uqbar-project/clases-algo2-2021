@@ -57,9 +57,12 @@ class ComplejidadMedia extends Complejidad {
 }
 class ComplejidadMaxima extends Complejidad {
 	override costo(Tarea tarea) {
-		super.costo(tarea) * 1.07 + (10 * Math.max(0, tarea.tiempo - 10))
+		super.costo(tarea) * 1.07 + adicionalPorTiempo(tarea)
 	}
 	
+	def int adicionalPorTiempo(Tarea tarea) {
+		10 * Math.max(0, tarea.tiempo - 10)
+	}
 }
 
 class TareaCompuesta extends Tarea {
