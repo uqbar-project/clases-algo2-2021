@@ -27,7 +27,6 @@ class StubRuletaHelper {
 		
 		doAnswer [ invocation |
 			val apuesta = invocation.arguments.head as Apuesta
-			println("numero ganador " + numeroGanador)
 			return apuesta.numeroApostado === numeroGanador
 		].when(ruleta).apuestaGanadora(any(Apuesta))
 		
