@@ -14,7 +14,6 @@ class TestMixto {
 
 	@BeforeEach
 	def void init() {
-		new ClientePosta()
 		mixto = new ClienteBuilder()
 			.saldo(50)
 			.safeShop(80)

@@ -1,5 +1,7 @@
 package ar.edu.tarjetaCredito
 
+import static org.junit.jupiter.api.Assertions.assertTrue
+
 class ClienteBuilder {
 	
 	Cliente cliente = new ClientePosta()
