@@ -11,4 +11,9 @@ class Mensaje {
 	def mailEmisor() {
 		emisor.mailPrincipal
 	}
+	
+	def contiene(String palabra) {
+		contenido.toLowerCase.contains(palabra.toLowerCase)
+	}
+	
 }
